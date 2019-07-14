@@ -1,7 +1,8 @@
 import {
   REGISTER_ERROR,
   REGISTER_LOADING,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
+  REGISTER_RESET
 } from '../store/actionType';
 
 const initialState = {
@@ -13,15 +14,19 @@ const initialState = {
 };
 
 const register = (state = initialState, action) => {
-  switch (action) {
+  console.log('====================================');
+  console.log(action);
+  console.log('====================================');
+  switch (action.type) {
     case REGISTER_LOADING:
       return { ...state, loading: true };
     case REGISTER_ERROR:
       return {
         ...state,
-        loading: true,
+        loading: false,
         errMsg: action.payload,
-        success: false
+        success: false,
+        err: true,
       };
     case REGISTER_SUCCESS:
       return {
@@ -31,6 +36,15 @@ const register = (state = initialState, action) => {
         err: false,
         errMsg: ''
       };
+    case REGISTER_RESET:
+      return {
+        ...state,
+        data: {},
+        success: false,
+        loading: false,
+        err: false,
+        errMsg: '',
+      }
     default:
       return { ...state };
   }

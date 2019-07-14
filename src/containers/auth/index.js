@@ -10,6 +10,7 @@ import LoginForm from '../../components/LoginForm';
 import { scale } from '../../utils/scaling';
 import registerAction from '../../actions/register';
 import loginAction from '../../actions/login';
+import { vw } from '../../utils/viewPort';
 
 const mapStateToProps = state => ({
   login: state.login,
@@ -22,6 +23,10 @@ const mapDispatchToProps = dispatch => ({
   },
   loginAction: (payload, navigation) => {
     dispatch(loginAction(payload, navigation));
+  },
+  resetState: () => {
+    dispatch({type : "REGISTER_RESET"})
+    dispatch({type : "LOGIN_RESET"})
   }
 });
 
@@ -32,19 +37,21 @@ class Auth extends Component {
     email: '',
     password: '',
     errMsg: '',
+    konfirmasiPass : ''
   };
 
   changeForm = () => {
     const {
       loginForm,
     } = this.state;
-
+    this.props.resetState()
     this.setState({
       loginForm: !loginForm,
       NIK: '',
       email: '',
       password: '',
       errMsg: '',
+      konfirmasiPass : ''
     });
   };
 
@@ -55,12 +62,13 @@ class Auth extends Component {
       NIK,
       email,
       password,
+      konfirmasiPass
     } = this.state;
 
     this.setState({
       errMsg: '',
     });
-
+    props.resetState()
     if (loginForm) {
       if (NIK && password) {
         props.loginAction({ NIK, password }, props.navigation);
@@ -70,11 +78,18 @@ class Auth extends Component {
         });
       }
     } else if (!loginForm) {
-      if (NIK && email) {
-        props.registerAction({ NIK, email });
+      if (NIK && email && password && konfirmasiPass) {
+        if( password == konfirmasiPass ){
+          let emailSend = email.toLocaleLowerCase()
+          props.registerAction({ NIK, email : emailSend.trim(), password });
+        } else{
+          this.setState({
+            errMsg: 'Password & Konfirmasi Password harus sesuai',
+          })
+        }
       } else {
         this.setState({
-          errMsg: 'NIK atau email tidak boleh kosong',
+          errMsg: 'Semua field harus terisi',
         });
       }
     }
@@ -91,6 +106,7 @@ class Auth extends Component {
       email,
       password,
       errMsg,
+      konfirmasiPass
     } = this.state;
     return (
       <View style={styles.container}>
@@ -102,12 +118,33 @@ class Auth extends Component {
           NIK={NIK}
           email={email}
           password={password}
+          konfirmasiPass={konfirmasiPass}
           onChangeInput={this.onChangeInput}
           authSend={this.authSend}
         />
-        <Text>
-          {errMsg}
-        </Text>
+        {
+          this.props.register.success && (
+            <Text style={{color:'#5FC856', fontSize:5*vw}}>Registrasi Berhasil !</Text>
+          )
+        }
+        {/* <Text>{JSON.stringify(this.props.register)}</Text> */}
+        {
+          this.props.register.err ? (
+            <Text style={{color:'#FF6948'}}>
+              {this.props.register.errMsg}
+            </Text>
+          ) : (
+            this.props.login.err ? (
+              <Text style={{color:'#FF6948'}}>
+                {this.props.login.errMsg}
+              </Text>
+            ) : (
+              <Text style={{color:'#FF6948'}}>
+                {errMsg}
+              </Text>
+            )
+          )
+        }
         <View style={styles.signupTextCont}>
           <Text style={styles.signupText}>Belum registrasi akun ? </Text>
           <TouchableOpacity onPress={this.changeForm}>

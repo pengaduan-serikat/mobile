@@ -15,6 +15,7 @@ const LoginForm = ({
   password,
   onChangeInput,
   authSend,
+  konfirmasiPass
 }) => (
   <View style={styles.container}>
     <TextInput
@@ -34,19 +35,43 @@ const LoginForm = ({
           underlineColorAndroid="rgba(0,0,0,0)"
           placeholder="Password"
           secureTextEntry
+          autoCapitalize={'none'}
           placeholderTextColor="#ffffff"
           value={password}
           onChangeText={text => onChangeInput(text, 'password')}
         />
       ) : (
-        <TextInput
-          style={styles.inputBox}
-          underlineColorAndroid="rgba(0,0,0,0)"
-          placeholder="Email"
-          placeholderTextColor="#ffffff"
-          value={email}
-          onChangeText={text => onChangeInput(text, 'email')}
-        />
+        <View>
+          <TextInput
+            style={styles.inputBox}
+            underlineColorAndroid="rgba(0,0,0,0)"
+            placeholder="Email"
+            autoCapitalize={'none'}
+            placeholderTextColor="#ffffff"
+            value={email}
+            onChangeText={text => onChangeInput(text, 'email')}
+          />
+          <TextInput
+            style={styles.inputBox}
+            underlineColorAndroid="rgba(0,0,0,0)"
+            placeholder="Password"
+            secureTextEntry
+            autoCapitalize={'none'}
+            placeholderTextColor="#ffffff"
+            value={password}
+            onChangeText={text => onChangeInput(text, 'password')}
+          />
+          <TextInput
+            style={styles.inputBox}
+            underlineColorAndroid="rgba(0,0,0,0)"
+            placeholder="Konfirmasi Password"
+            secureTextEntry
+            autoCapitalize={'none'}
+            placeholderTextColor="#ffffff"
+            value={konfirmasiPass}
+            onChangeText={text => onChangeInput(text, 'konfirmasiPass')}
+          />
+        </View>
       )
     }
     <TouchableOpacity
