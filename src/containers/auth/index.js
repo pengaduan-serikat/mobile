@@ -11,7 +11,7 @@ import { scale } from '../../utils/scaling';
 import registerAction from '../../actions/register';
 import loginAction from '../../actions/login';
 import { vw } from '../../utils/viewPort';
-import cekToken from '../../actions/cekToken';
+// import cekToken from '../../actions/cekToken';
 
 const mapStateToProps = state => ({
   login: state.login,
@@ -100,9 +100,7 @@ class Auth extends Component {
     this.setState({ [key]: value });
   };
 
-  componentDidMount=()=>{
-    cekToken(this.props.navigation)
-  }
+
   render() {
     const {
       loginForm,
@@ -135,12 +133,12 @@ class Auth extends Component {
         {
           this.props.register.err ? (
             <Text style={{color:'#FF6948'}}>
-              {this.props.register.errMsg}
+              {JSON.stringify(this.props.register.errMsg)}
             </Text>
           ) : (
             this.props.login.err ? (
               <Text style={{color:'#FF6948'}}>
-                {this.props.login.errMsg}
+                {this.props.login.errMsg.message}
               </Text>
             ) : (
               <Text style={{color:'#FF6948'}}>
