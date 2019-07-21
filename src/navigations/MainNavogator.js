@@ -10,6 +10,8 @@ const AppSwitchNavigator = createSwitchNavigator({
   Loading,
   Auth,
   Employee: EmployeeNavigator,
+},{
+  initialRouteName : 'Employee'
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);

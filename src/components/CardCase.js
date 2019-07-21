@@ -13,8 +13,16 @@ const CardCase = props => {
         <Text style={styles.textStyle}>{props.caseDetail.title}</Text>
         <Text style={styles.titleStyle}>Deskripsi</Text>
         <Text style={styles.textStyle}>{props.caseDetail.description}</Text>
-        <Text style={styles.titleStyle}>Tanggal</Text>
-        <Text style={styles.textStyle}>{convertTgl(props.caseDetail.created_at)}</Text>
+        <View style={{ flexDirection:'row'}}>
+          <View style={{flex:1}}>
+            <Text style={styles.titleStyle}>Tanggal</Text>
+            <Text style={styles.textStyle}>{convertTgl(props.caseDetail.created_at)}</Text>
+          </View>
+          <View style={{flex:1}}>
+            <Text style={styles.titleStyle}>Status</Text>
+            <Text style={styles.textStyle}>{props.caseDetail.case_status}</Text>
+          </View>
+        </View>
       </View>
     </View>
   )

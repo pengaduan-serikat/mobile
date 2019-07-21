@@ -11,14 +11,7 @@ export default ( navigation ) => async (dispatch) => {
     const token = await AsyncStorage.getItem('accessToken')
     const { data } = await axios.get(`${API_URL}cases`, { headers : { Authorization : `Bearer ${token}`}})
     dispatch({ type: GET_CASES_SUCCESS, payload : data });
-
-    console.log('====================================');
-    console.log("data ====> ", data);
-    console.log('====================================');
   } catch(err){
     dispatch({ type: GET_CASES_ERROR, payload : err.response.data });
-    console.log('====================================');
-    console.log("error get cases ", err.response.data);
-    console.log('====================================');
   }
 }
