@@ -22,6 +22,7 @@ class ModalAdd extends Component { //title, Press
   }
   closeModal=()=>{
     this.setState({ isOpen : false, errMsg:null, title: null, description: null })
+    this.props.resetState()
     // this.setState({ isOpen : false })
     // this.refs.Modal.close()
   }
@@ -41,7 +42,6 @@ class ModalAdd extends Component { //title, Press
   componentDidUpdate = () => {
     if(this.props.stateAddComplaint.success){
       this.closeModal()
-      this.props.resetState()
     }
   }
   render() {

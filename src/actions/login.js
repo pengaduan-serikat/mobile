@@ -16,18 +16,18 @@ export default (payload, navigation) => async (dispatch) => {
     };
 
     const { data } = await axios.post(`${API_URL}employees/login`, body);
+    let fullName = data.first_name + " " +data.last_name
     await AsyncStorage.setItem('accessToken', data.token)
-    // const token = await AsyncStorage.getItem('accessToken')
-    // console.log("data token =====> ",token);
+    await AsyncStorage.setItem('NIK', data.NIK)
+    await AsyncStorage.setItem('email', data.email)
+    await AsyncStorage.setItem('fullName', fullName)
+    await AsyncStorage.setItem('division', data.division_id.toString())
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data,
     });
     navigation.navigate('Employee');
-    // console.log(navigation);
   } catch (error) {
-    console.log(error);
-    // console.log(error.response.data);
     dispatch({
       type: LOGIN_ERROR,
       payload: error.response.data,

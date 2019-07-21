@@ -10,7 +10,6 @@ export default payload => async (dispatch) => {
   dispatch({
     type: REGISTER_LOADING
   });
-  console.log(payload);
   try {
     const body = {
       NIK: payload.NIK,
@@ -19,20 +18,17 @@ export default payload => async (dispatch) => {
     };
 
     const { data } = await axios.post(`${API_URL}employees/register`, body);
-    console.log(data, 'successsssss =-=-=-=');
     dispatch({
       type: REGISTER_SUCCESS,
       payload: data,
     });
   } catch (error) {
     if( error.response ){
-      console.log(error.response.data, 'failed ini ada response =-=-=-=-=-');
       dispatch({
         type: REGISTER_ERROR,
         payload: error.response.data.message,
       });
     } else{
-      console.log(error.message, 'failed ini gaada response =-=-=-=-=-');
       dispatch({
         type: REGISTER_ERROR,
         payload: error.message,

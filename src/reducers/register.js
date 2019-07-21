@@ -14,9 +14,6 @@ const initialState = {
 };
 
 const register = (state = initialState, action) => {
-  console.log('====================================');
-  console.log(action);
-  console.log('====================================');
   switch (action.type) {
     case REGISTER_LOADING:
       return { ...state, loading: true };

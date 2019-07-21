@@ -11,15 +11,9 @@ export default ( navigation, dataPengaduan ) => async (dispatch) => {
     await cekToken(navigation)
     const token = await AsyncStorage.getItem('accessToken')
     const { data } = await axios.post(`${API_URL}cases`, dataPengaduan, { headers : { Authorization : `Bearer ${token}`}})
-    console.log('====================================');
-    console.log(data, " apanih hadil dari add");
-    console.log('====================================');
     dispatch(listCases(navigation))
     dispatch({ type: ADD_COMPLAINT_SUCCESS });
   } catch(err){
-    dispatch({ type: ADD_COMPLAINT_ERROR, payload : err.response.data });
-    console.log('====================================');
-    console.log(err.response.data, " ini error add");
-    console.log('====================================');
+    dispatch({ type: ADD_COMPLAINT_ERROR, payload : err.response.data.message });
   }
 }
