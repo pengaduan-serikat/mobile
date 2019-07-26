@@ -10,12 +10,13 @@ import { scale } from '../utils/scaling';
 import { vw } from '../utils/viewPort';
 import IconProfile from '../assets/363633-200.png'
 import IconProfileFocus from '../assets/download.png'
+import HomeStack from './HomeStack';
 
 const AppStackNavigator = createBottomTabNavigator({
   // Home,
   // Profile,
   Home: {
-    screen: Home,
+    screen: HomeStack,
     navigationOptions: {
       tabBarLabel: "Home",
       tabBarIcon: ({ tintColor, focused }) =>

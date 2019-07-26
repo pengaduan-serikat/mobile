@@ -16,12 +16,17 @@ export default (payload, navigation) => async (dispatch) => {
     };
 
     const { data } = await axios.post(`${API_URL}employees/login`, body);
+    console.log('====================================');
+    console.log("data login ==> ", data);
+    console.log('====================================');
     let fullName = data.first_name + " " +data.last_name
     await AsyncStorage.setItem('accessToken', data.token)
     await AsyncStorage.setItem('NIK', data.NIK)
     await AsyncStorage.setItem('email', data.email)
     await AsyncStorage.setItem('fullName', fullName)
-    await AsyncStorage.setItem('division', data.division_id.toString())
+    await AsyncStorage.setItem('division', data.division_name)
+    await AsyncStorage.setItem('accessId', data.access_type_id.toString())  
+    
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data,

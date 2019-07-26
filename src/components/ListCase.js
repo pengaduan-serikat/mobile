@@ -8,7 +8,7 @@ const ListCase = props => {
       {
         props.list.map((value, index)=>{
           return (
-            <CardCase caseDetail = { value } key = { index }></CardCase>
+            <CardCase caseDetail = { value } key = { index } user={props.user} navigation={props.navigation}></CardCase>
           )
         })
       }
