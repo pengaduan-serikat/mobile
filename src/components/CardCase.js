@@ -25,13 +25,9 @@ const CardCase = props => {
             </View>
           </View>
         </View>
-        {
-          props.user == 'executor' && (
-            <TouchableOpacity onPress={()=>props.navigation.navigate('DetailPengaduan', { data : props.caseDetail })} style={{backgroundColor:'#5FC856', borderBottomLeftRadius:scale(4), borderBottomRightRadius:scale(4), borderColor:'#5FC856', paddingVertical:scale(10), justifyContent:'center', alignItems:'center'}}>
-              <Text style={{fontSize:4*vw, color:'white'}}>Detail</Text>
-            </TouchableOpacity>
-          )
-        }
+        <TouchableOpacity onPress={()=>props.navigation.navigate('DetailPengaduan', { id : props.caseDetail.id, user : props.user })} style={{backgroundColor:'#5FC856', borderBottomLeftRadius:scale(4), borderBottomRightRadius:scale(4), borderColor:'#5FC856', paddingVertical:scale(10), justifyContent:'center', alignItems:'center'}}>
+          <Text style={{fontSize:4*vw, color:'white'}}>Detail</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

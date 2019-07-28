@@ -16,9 +16,6 @@ export default (payload, navigation) => async (dispatch) => {
     };
 
     const { data } = await axios.post(`${API_URL}employees/login`, body);
-    console.log('====================================');
-    console.log("data login ==> ", data);
-    console.log('====================================');
     let fullName = data.first_name + " " +data.last_name
     await AsyncStorage.setItem('accessToken', data.token)
     await AsyncStorage.setItem('NIK', data.NIK)

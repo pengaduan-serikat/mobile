@@ -59,9 +59,21 @@ class index extends Component {
   addComplaint = ( data ) => {
     this.props.addComplaint( this.props.navigation, data )
   }
-  refreshState = () => {
+  refreshState = async () => {
     this.setState({ refreshing : true })
-    this.props.getCases(this.props.navigation)
+    try{
+      const accessId = await AsyncStorage.getItem('accessId')
+      if( accessId == 2 ){
+        this.setState({ user : "user" })
+        this.props.getCases(this.props.navigation)
+      } else if( accessId == 3 ){
+        this.setState({ user : "executor" })
+        this.props.getCasesExecutor(this.props.navigation)
+      }
+    } catch(err){
+
+    }
+    // this.props.getCases(this.props.navigation)
     this.setState({ refreshing : false })
   }
   render() {
@@ -77,7 +89,7 @@ class index extends Component {
         >
           {
             this.props.listCase.loading ? (
-              <View style={{paddingTop:scale(50)}}>
+              <View style={{paddingTop:scale(100)}}>
                 <ActivityIndicator size={'large'}></ActivityIndicator>
               </View>
             ) : (

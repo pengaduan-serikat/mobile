@@ -10,9 +10,6 @@ export default ( navigation ) => async (dispatch) => {
     await cekToken(navigation)
     const token = await AsyncStorage.getItem('accessToken')
     const { data } = await axios.get(`${API_URL}executors/cases`, { headers : { Authorization : `Bearer ${token}`}})
-    console.log('====================================');
-    console.log("data cases ==> ", data);
-    console.log('====================================');
     dispatch({ type: GET_CASES_SUCCESS, payload : data });
   } catch(err){
     dispatch({ type: GET_CASES_ERROR, payload : err.response.data });
