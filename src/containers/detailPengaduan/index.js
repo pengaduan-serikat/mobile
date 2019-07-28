@@ -7,7 +7,7 @@ import { vw } from '../../utils/viewPort';
 import convertTgl from '../../utils/convertTgl';
 import ModalAddFB from '../../components/ModalAddFB';
 import addFeedback from '../../actions/addFeedback'
-import detailComplaint from '../../actions/detailComplaint'
+import detailComplaintUser from '../../actions/detailComplaint'
 
 
 const mapStateToProps = state => ({
@@ -16,8 +16,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  detailComplaintExecutor: (navigation, id) => {
-    dispatch(detailComplaintExecutor(navigation, id))
+  detailComplaintUser: (navigation, id) => {
+    dispatch(detailComplaintUser(navigation, id))
   },
   detailComplaint: (navigation, id) => {
     dispatch(detailComplaint(navigation, id))
@@ -43,7 +43,7 @@ class DetailPengaduan extends Component {
     if( user == 'executor'){
       this.props.detailComplaintExecutor(this.props.navigation, id)
     } else if( user == 'user'){
-      this.props.detailComplaint(this.props.navigation, id)
+      this.props.detailComplaintUser(this.props.navigation, id)
     }
   }
   openModal = () => {
