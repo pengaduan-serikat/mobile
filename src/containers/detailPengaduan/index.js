@@ -16,11 +16,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  detailComplaintExecutor: (navigation, id) => {
+    dispatch(detailComplaintExecutor(navigation, id))
+  },
   detailComplaintUser: (navigation, id) => {
     dispatch(detailComplaintUser(navigation, id))
-  },
-  detailComplaint: (navigation, id) => {
-    dispatch(detailComplaint(navigation, id))
   },
   addFeedback : (navigation, id, description) => {
     dispatch(addFeedback(navigation, id, description))
