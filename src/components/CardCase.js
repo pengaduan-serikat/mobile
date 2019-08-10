@@ -7,7 +7,6 @@ import { vw } from '../utils/viewPort';
 const CardCase = props => {
   return (
     <View style={{marginBottom:scale(10)}}>
-      {/* <Text>{JSON.stringify(props.caseDetail)}</Text> */}
       <View style={{borderWidth:1, borderColor:'#C4C4C4', borderRadius:scale(5)}}>
         <View style={{paddingVertical:scale(5), paddingHorizontal:scale(10),}}>  
           <Text style={styles.titleStyle}>Title</Text>

@@ -11,6 +11,8 @@ import addComplaint from '../reducers/addComplaint';
 import changePassword from '../reducers/changePassword';
 import detailComplaint from '../reducers/detailComplaint';
 import addFeedback from '../reducers/addFeedback'
+import listEvent from '../reducers/events'
+import forgotPass from '../reducers/forgotPass'
 
 const combined = combineReducers({ 
   login, 
@@ -19,7 +21,9 @@ const combined = combineReducers({
   addComplaint, 
   changePassword,
   detailComplaint,
-  addFeedback
+  addFeedback,
+  listEvent,
+  forgotPass
 });
 const store = createStore(
   combined,

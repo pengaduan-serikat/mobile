@@ -18,7 +18,14 @@ const mapDispatchToProps = dispatch => ({
   resetState: () => {
     dispatch({type : 'CHANGE_PASSWORD_RESET'})
     dispatch({type : 'REGISTER_RESET'})
+    dispatch({type : 'ADD_COMPLAINT_RESET'})
+    dispatch({type : 'ADD_FEEDBACK_RESET'})
+    dispatch({type : 'DETAIL_COMPLAINT_RESET'})
+  },
+  resetStateLogout : () => {
     dispatch({type : 'GET_CASES_RESET'})
+    dispatch({type : 'CHANGE_PASSWORD_RESET'})
+    dispatch({type : 'REGISTER_RESET'})
     dispatch({type : 'ADD_COMPLAINT_RESET'})
     dispatch({type : 'ADD_FEEDBACK_RESET'})
     dispatch({type : 'DETAIL_COMPLAINT_RESET'})
@@ -38,7 +45,7 @@ class index extends Component {
   Logout = async () => {
     try{
       await AsyncStorage.clear()
-      await this.props.resetState()
+      await this.props.resetStateLogout()
       this.props.navigation.navigate('Auth')
     } catch(err) {
     }
