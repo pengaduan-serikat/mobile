@@ -18,10 +18,10 @@ const CardCase = props => {
               <Text style={styles.titleStyle}>Tanggal</Text>
               <Text style={styles.textStyle}>{convertTgl(props.caseDetail.created_at)}</Text>
             </View>
-            <View style={{flex:1}}>
+            {/* <View style={{flex:1}}>
               <Text style={styles.titleStyle}>Status</Text>
               <Text style={styles.textStyle}>{props.caseDetail.case_status}</Text>
-            </View>
+            </View> */}
           </View>
         </View>
         <TouchableOpacity onPress={()=>props.navigation.navigate('DetailPengaduan', { id : props.caseDetail.id, user : props.user })} style={{backgroundColor:'#5FC856', borderBottomLeftRadius:scale(4), borderBottomRightRadius:scale(4), borderColor:'#5FC856', paddingVertical:scale(10), justifyContent:'center', alignItems:'center'}}>
