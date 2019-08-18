@@ -11,6 +11,10 @@ import { vw } from '../utils/viewPort';
 import IconProfile from '../assets/363633-200.png'
 import IconProfileFocus from '../assets/download.png'
 import HomeStack from './HomeStack';
+import Event from '../containers/Event'
+import IconNewsFocus from "../assets/newspaper-blue.png"
+import IconNews from "../assets/newspaper-black.png"
+
 
 const AppStackNavigator = createBottomTabNavigator({
   // Home,
@@ -33,6 +37,24 @@ const AppStackNavigator = createBottomTabNavigator({
           )
     }
   },
+  Event: {
+    screen: Event,
+    navigationOptions: {
+      tabBarLabel: "Events",
+      tabBarIcon: ({ tintColor, focused }) =>
+        focused ? (
+          <Image
+            source={IconNewsFocus}
+            style={{ height: scale(19), width: scale(19) }}
+          />
+        ) : (
+            <Image
+              source={IconNews}
+              style={{ height: scale(19), width: scale(19) }}
+            />
+          )
+    }
+  },
   Profile: {
     screen: Profile,
     navigationOptions: {
@@ -50,7 +72,8 @@ const AppStackNavigator = createBottomTabNavigator({
             />
           )
     }
-  }
+  },   
+
 },
 {
   tabBarOptions: {

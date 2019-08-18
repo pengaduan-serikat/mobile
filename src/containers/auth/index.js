@@ -11,20 +11,27 @@ import { scale } from '../../utils/scaling';
 import registerAction from '../../actions/register';
 import loginAction from '../../actions/login';
 import { vw } from '../../utils/viewPort';
+import ModalForgotPass from '../../components/ModalForgotPass';
+import forgotPass from '../../actions/forgotPass'
 // import cekToken from '../../actions/cekToken';
 
 const mapStateToProps = state => ({
   login: state.login,
   register: state.register,
+  reducerforgotPass : state.forgotPass
 });
 
 const mapDispatchToProps = dispatch => ({
   registerAction: (payload) => {
     dispatch(registerAction(payload));
   },
+  forgotPass: ( navigation, email ) => {
+    dispatch(forgotPass(navigation, email));
+  },
   loginAction: (payload, navigation) => {
     dispatch(loginAction(payload, navigation));
   },
+
   resetState: () => {
     dispatch({type : "REGISTER_RESET"})
     dispatch({type : "LOGIN_RESET"})
@@ -100,7 +107,9 @@ class Auth extends Component {
     this.setState({ [key]: value });
   };
 
-
+  forgotPass = (email) => {
+    this.props.forgotPass( this.props.navigation, email)
+  }
   render() {
     const {
       loginForm,
@@ -124,6 +133,13 @@ class Auth extends Component {
           onChangeInput={this.onChangeInput}
           authSend={this.authSend}
         />
+        {
+          loginForm && (
+            <TouchableOpacity onPress={()=>this.refs.modalForgotPass.showModal()}>
+              <Text style={{color:'white', fontSize:3*vw}}>Forgot Password ? </Text>
+            </TouchableOpacity>
+          )
+        }
         {
           this.props.register.success && (
             <Text style={{color:'#5FC856', fontSize:5*vw}}>Registrasi Berhasil !</Text>
@@ -155,6 +171,7 @@ class Auth extends Component {
             </Text>
           </TouchableOpacity>
         </View>
+        <ModalForgotPass ref={'modalForgotPass'} forgotPass={this.forgotPass} reducerforgotPass={this.props.reducerforgotPass}></ModalForgotPass>
       </View>
     );
   }

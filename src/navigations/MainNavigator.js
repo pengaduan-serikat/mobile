@@ -9,6 +9,7 @@ import Loading from '../containers/loading'
 const AppSwitchNavigator = createSwitchNavigator({
   Loading,
   Auth,
+  // Event,
   Employee: EmployeeNavigator,
 },{
   initialRouteName : 'Loading'

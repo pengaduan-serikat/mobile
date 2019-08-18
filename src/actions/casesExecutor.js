@@ -4,12 +4,12 @@ import { API_URL } from '../utils/constant';
 import AsyncStorage from '@react-native-community/async-storage';
 import cekToken from './cekToken';
 
-export default ( navigation ) => async (dispatch) => {
+export default ( navigation, page ) => async (dispatch) => {
   dispatch({ type: GET_CASES_LOADING });
   try {
     await cekToken(navigation)
     const token = await AsyncStorage.getItem('accessToken')
-    const { data } = await axios.get(`${API_URL}executors/cases`, { headers : { Authorization : `Bearer ${token}`}})
+    const { data } = await axios.get(`${API_URL}executors/cases?page=${page}`, { headers : { Authorization : `Bearer ${token}`}})
     dispatch({ type: GET_CASES_SUCCESS, payload : data });
   } catch(err){
     dispatch({ type: GET_CASES_ERROR, payload : err.response.data });

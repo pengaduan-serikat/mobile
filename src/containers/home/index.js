@@ -17,11 +17,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCases: (navigation) => {
-    dispatch(cases(navigation));
+  getCases: (navigation, page) => {
+    dispatch(cases(navigation, page));
   },
-  getCasesExecutor: (navigation) => {
-    dispatch(casesExecutor(navigation));
+  getCasesExecutor: (navigation, page) => {
+    dispatch(casesExecutor(navigation, page));
   },
   addComplaint: (navigation, data) => {
     dispatch(addComplaint(navigation, data))
@@ -36,19 +36,26 @@ class index extends Component {
     super(props);
     this.state = { 
       refreshing : false,
-      user : null
+      user : null,
+      page : 0
     };
   }
-  componentDidMount= async () =>{
+  componentDidMount= () =>{
+    this.getCases(1)
+  }
+
+  getCases = async (next) => {
+    let page = this.state.page + next
     try{
       const accessId = await AsyncStorage.getItem('accessId')
       if( accessId == 2 ){
         this.setState({ user : "user" })
-        this.props.getCases(this.props.navigation)
+        this.props.getCases(this.props.navigation, page )
       } else if( accessId == 3 ){
         this.setState({ user : "executor" })
-        this.props.getCasesExecutor(this.props.navigation)
+        this.props.getCasesExecutor(this.props.navigation, page)
       }
+      this.setState({ page })
     } catch(err){
 
     }
@@ -61,19 +68,7 @@ class index extends Component {
   }
   refreshState = async () => {
     this.setState({ refreshing : true })
-    try{
-      const accessId = await AsyncStorage.getItem('accessId')
-      if( accessId == 2 ){
-        this.setState({ user : "user" })
-        this.props.getCases(this.props.navigation)
-      } else if( accessId == 3 ){
-        this.setState({ user : "executor" })
-        this.props.getCasesExecutor(this.props.navigation)
-      }
-    } catch(err){
-
-    }
-    // this.props.getCases(this.props.navigation)
+    this.getCases(0)
     this.setState({ refreshing : false })
   }
   render() {
@@ -103,7 +98,7 @@ class index extends Component {
                     </View>
                   )
                 }
-                <ListCase list={this.props.listCase.cases} user={this.state.user} navigation={this.props.navigation}></ListCase>
+                <ListCase getCases={this.getCases} list={this.props.listCase.cases} user={this.state.user} navigation={this.props.navigation}></ListCase>
               </View>
             )
           }
