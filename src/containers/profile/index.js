@@ -3,25 +3,9 @@ import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { scale } from '../../utils/scaling';
 import AsyncStorage from '@react-native-community/async-storage';
 import { vw } from '../../utils/viewPort';
-import ModalChangePass from '../../components/ModalChangePass';
 import { connect } from 'react-redux';
-import changePassword from '../../actions/changePassword';
-
-const mapStateToProps = state => ({
-  stateChangePass : state.changePassword
-});
 
 const mapDispatchToProps = dispatch => ({
-  changePassword: (navigation, data) => {
-    dispatch(changePassword(navigation, data))
-  },
-  resetState: () => {
-    dispatch({type : 'CHANGE_PASSWORD_RESET'})
-    dispatch({type : 'REGISTER_RESET'})
-    dispatch({type : 'ADD_COMPLAINT_RESET'})
-    dispatch({type : 'ADD_FEEDBACK_RESET'})
-    dispatch({type : 'DETAIL_COMPLAINT_RESET'})
-  },
   resetStateLogout : () => {
     dispatch({type : 'GET_CASES_RESET'})
     dispatch({type : 'CHANGE_PASSWORD_RESET'})
@@ -85,18 +69,17 @@ class index extends Component {
           </View>
         </View>
         <View style={{width:'100%', justifyContent:'space-between', flexDirection:'row'}}>
-          <TouchableOpacity onPress={()=>this.refs.modalChangePass.showModal()} style={{backgroundColor:'#48C2FF', paddingHorizontal:scale(20), paddingVertical:scale(20), borderRadius:scale(5)}}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate('ChangePass')} style={{backgroundColor:'#48C2FF', paddingHorizontal:scale(20), paddingVertical:scale(20), borderRadius:scale(5)}}>
             <Text style={{color:'white', fontSize:4*vw, fontWeight:'700'}}>Ubah Password</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={()=>this.Logout()} style={{backgroundColor:'#FF6948', paddingHorizontal:scale(20), paddingVertical:scale(20), borderRadius:scale(5)}}>
             <Text style={{color:'white', fontSize:4*vw, fontWeight:'700'}}>Logout</Text>
           </TouchableOpacity>
         </View>
-        <ModalChangePass ref={'modalChangePass'} changePassword={this.changePassword} stateChangePass = { this.props.stateChangePass } resetState={this.props.resetState}></ModalChangePass>
       </View>
     );
   }
 }
 
 // export default index;
-export default connect(mapStateToProps, mapDispatchToProps)(index);
+export default connect(null, mapDispatchToProps)(index);

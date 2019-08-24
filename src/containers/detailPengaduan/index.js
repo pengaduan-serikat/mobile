@@ -94,15 +94,15 @@ class DetailPengaduan extends Component {
                       )
                     }
                     <Text style={styles.titleStyle}>Title</Text>
-                    <Text style={styles.textStyle}>{data.case.title}</Text>
+                    <Text style={styles.textStyle}>{ data.case.title || "-" }</Text>
                     <Text style={styles.titleStyle}>Deskripsi</Text>
-                    <Text style={styles.textStyle}>{data.case.description}</Text>
+                    <Text style={styles.textStyle}>{data.case.description || "-" }</Text>
                     <Text style={styles.titleStyle}>Nama Pengadu</Text>
-                    <Text style={styles.textStyle}>{data.case.user_full_name}</Text>
+                    <Text style={styles.textStyle}>{data.case.user_full_name || "-" }</Text>
                     <Text style={styles.titleStyle}>Nama Executor</Text>
-                    <Text style={styles.textStyle}>{data.case.executor_full_name}</Text>
+                    <Text style={styles.textStyle}>{ data.case.executor_full_name || "-" }</Text>
                     <Text style={styles.titleStyle}>Tanggal</Text>
-                    <Text style={styles.textStyle}>{convertTgl(data.case.created_at)}</Text>
+                    <Text style={styles.textStyle}>{ data.case.created_at ? convertTgl(data.case.created_at) : "-" }</Text>
                     <Text style={styles.titleStyle}>Riwayat Pengaduan</Text>
                     <View style={{ width:scale(20), alignItems:'center', marginLeft:scale(10), height:scale(20)}}>
                       <View style={{flex:1, borderWidth:1, borderColor:'#C4C4C4'}}></View>

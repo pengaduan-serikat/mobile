@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator } from 'react-native'
-import Modal from 'react-native-modalbox'
-import { scale } from '../utils/scaling';
-import { vw } from '../utils/viewPort';
+import { scale } from '../../utils/scaling';
+import { vw } from '../../utils/viewPort';
+import { connect } from 'react-redux';
+import forgotPass from '../../actions/forgotPass'
 
-class ModalForgotPass extends Component {
+const mapStateToProps = state => ({
+  reducerforgotPass : state.forgotPass
+});
+const mapDispatchToProps = dispatch => ({
+  forgotPass: ( navigation, email ) => {
+    dispatch(forgotPass(navigation, email));
+  },
+});
+class ForgotPass extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      isOpen : false,
+    this.state = {  
       errMsg : null,
       email : null
     };
   }
-  showModal=()=>{
-    this.setState({ isOpen : true })
-    // this.refs.Modal.open()
-  }
-  closeModal=()=>{
-    this.setState({ isOpen : false, errMsg:null, email : null })
+  forgotPass = (email) => {
+    this.props.forgotPass( this.props.navigation, email)
   }
   sendEmail = () => {
     this.setState({ errMsg : null })
@@ -26,34 +30,14 @@ class ModalForgotPass extends Component {
     if( !this.state.email ){
       this.setState({ errMsg : "Email harus terisi." })
     } else{
-      this.props.forgotPass(this.state.email)
+      this.forgotPass(this.state.email)
     }
   }
   render() {
     let { loading, err, errMsg, success, successMsg } = this.props.reducerforgotPass
 
     return (
-      <Modal
-      ref={"Modal"}
-      style={{
-        height:'45%',
-        width:'80%',
-        borderRadius:scale(5),
-        marginTop:scale(60)
-      }}
-      onClosed={()=>this.closeModal()}
-      position="top"
-      isOpen={this.state.isOpen}
-      // swipeToClose={false}
-      backdropPressToClose={false}
-      key={this.state.isOpen ? 1 : 2}
-    >
       <View style={{flex:1, alignItems:'center', paddingVertical:scale(10), paddingHorizontal:scale(15)}}>
-        <View style={{width:'100%', alignItems:'flex-end'}}>
-          <TouchableOpacity style={{paddingHorizontal:scale(10)}} onPress={this.closeModal}>
-            <Text style={{fontSize:6*vw, color:'#8D8D8D'}}>x</Text>
-          </TouchableOpacity>
-        </View>
         <Text style={{color:'#8D8D8D', fontSize:5*vw, fontWeight:'700'}}>Forgot Password</Text>
         <View style={{width:'100%', paddingHorizontal:scale(20), marginTop:scale(10)}}>
           <View style={ [styles.ContainerContent, {marginBottom:scale(20)}] }>
@@ -84,7 +68,6 @@ class ModalForgotPass extends Component {
           )
         }
       </View>
-    </Modal>
     );
   }
 }
@@ -112,4 +95,5 @@ const styles = StyleSheet.create({
     paddingVertical:scale(5)
   }
 })
-export default ModalForgotPass;
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPass);
+// export default ForgotPass;

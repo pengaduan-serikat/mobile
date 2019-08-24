@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator, ScrollView } from 'react-native'
 import Modal from 'react-native-modalbox'
 import { scale } from '../utils/scaling';
 import { vw } from '../utils/viewPort';
@@ -61,42 +61,44 @@ class ModalAdd extends Component { //title, Press
         backdropPressToClose={false}
         key={this.state.isOpen ? 1 : 2}
       >
-        <View style={{flex:1, alignItems:'center', paddingVertical:scale(10), paddingHorizontal:scale(15)}}>
-          <View style={{width:'100%', alignItems:'flex-end'}}>
-            <TouchableOpacity style={{padding:scale(10)}} onPress={this.closeModal}>
-              <Text style={{fontSize:6*vw, color:'#8D8D8D'}}>x</Text>
-            </TouchableOpacity>
-          </View>
-          <Text style={{color:'#8D8D8D', fontSize:5*vw, fontWeight:'700'}}>Form Pengaduan</Text>
-          <View style={{width:'100%', paddingHorizontal:scale(20), marginTop:scale(10)}}>
-            <View style={ [styles.ContainerContent, {height:scale(65)}] }>
-              <Text style={ styles.TitleStyle }>Judul Pengaduan</Text>
-              <TextInput style={ [styles.InputStyle, {height:scale(40), textAlignVertical:'top'}] } multiline={true} value={this.state.title} onChangeText={(title)=>this.setState({ title })}></TextInput>
+        <ScrollView>
+          <View style={{alignItems:'center', paddingVertical:scale(10), paddingHorizontal:scale(15)}}>
+            <View style={{width:'100%', alignItems:'flex-end'}}>
+              <TouchableOpacity style={{padding:scale(10)}} onPress={this.closeModal}>
+                <Text style={{fontSize:6*vw, color:'#8D8D8D'}}>x</Text>
+              </TouchableOpacity>
             </View>
-            <View style={ [styles.ContainerContent, {height:scale(150)}] }>
-              <Text style={ styles.TitleStyle }>Deskripsi Pengaduan</Text>
-              <TextInput style={ [styles.InputStyle , {height:130, textAlignVertical:'top'}]} multiline={true} value={this.state.description} onChangeText={(description)=>this.setState({ description })}></TextInput>
+            <Text style={{color:'#8D8D8D', fontSize:5*vw, fontWeight:'700'}}>Form Pengaduan</Text>
+            <View style={{width:'100%', paddingHorizontal:scale(20), marginTop:scale(10)}}>
+              <View style={ [styles.ContainerContent, {height:scale(65)}] }>
+                <Text style={ styles.TitleStyle }>Judul Pengaduan</Text>
+                <TextInput style={ [styles.InputStyle, {height:scale(40), textAlignVertical:'top'}] } multiline={true} value={this.state.title} onChangeText={(title)=>this.setState({ title })}></TextInput>
+              </View>
+              <View style={ [styles.ContainerContent, {height:scale(150)}] }>
+                <Text style={ styles.TitleStyle }>Deskripsi Pengaduan</Text>
+                <TextInput style={ [styles.InputStyle , {height:130, textAlignVertical:'top'}]} multiline={true} value={this.state.description} onChangeText={(description)=>this.setState({ description })}></TextInput>
+              </View>
             </View>
-          </View>
-          <View style={{width:'100%', alignItems:'center', marginTop:scale(20)}}>
+            <View style={{width:'100%', alignItems:'center', marginTop:scale(20)}}>
+              {
+                loading ? (
+                  <ActivityIndicator size={'small'}></ActivityIndicator>
+                ) : (
+                  <TouchableOpacity onPress={this.actionAddComplaint} style={{backgroundColor:'#5FC856', paddingHorizontal:scale(35), paddingVertical:scale(10), borderRadius:scale(30)}}>
+                    <Text style={{color:'white', fontSize:4*vw}}>SIMPAN</Text>
+                  </TouchableOpacity>
+                )
+              }
+            </View>
             {
-              loading ? (
-                <ActivityIndicator size={'small'}></ActivityIndicator>
+              err ? (
+                <Text style={{color:'#FF6948', paddingTop:scale(5), textAlign:'center'}}>{errMsg}</Text>
               ) : (
-                <TouchableOpacity onPress={this.actionAddComplaint} style={{backgroundColor:'#5FC856', paddingHorizontal:scale(35), paddingVertical:scale(10), borderRadius:scale(30)}}>
-                  <Text style={{color:'white', fontSize:4*vw}}>SIMPAN</Text>
-                </TouchableOpacity>
+                <Text style={{color:'#FF6948', paddingTop:scale(5), textAlign:'center'}}>{this.state.errMsg}</Text>
               )
             }
           </View>
-          {
-            err ? (
-              <Text style={{color:'#FF6948', paddingTop:scale(5), textAlign:'center'}}>{errMsg}</Text>
-            ) : (
-              <Text style={{color:'#FF6948', paddingTop:scale(5), textAlign:'center'}}>{this.state.errMsg}</Text>
-            )
-          }
-        </View>
+        </ScrollView>
       </Modal>
     );
   }
